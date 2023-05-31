@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "beedance",
+  "version": "${version}",
+  "name": "BeeDance",
+  "description": "Gives bees the ability to tell other bees where flowers are with a cute, little waggle-dance. ",
+  "authors": [
+    "CyborgPigeon"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/beedance/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.hyper_pigeon.beedance.client.BeeDanceClient"
+    ],
+    "main": [
+      "net.hyper_pigeon.beedance.BeeDance"
+    ]
+  },
+  "mixins": [
+    "beedance.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.20",
+    "fabric": "*",
+    "minecraft": "1.19.4"
+  }
+}

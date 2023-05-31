@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.hyper_pigeon.beedance.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BeeEntityMixin"
+  ],
+  "client": [
+    "BeeEntityModelMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
