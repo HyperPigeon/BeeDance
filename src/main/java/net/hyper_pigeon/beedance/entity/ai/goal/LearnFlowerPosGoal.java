@@ -3,6 +3,7 @@ package net.hyper_pigeon.beedance.entity.ai.goal;
 import net.hyper_pigeon.beedance.interfaces.BeeDancing;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
 
@@ -36,7 +37,9 @@ public class LearnFlowerPosGoal extends BeeNotAngryGoal {
     }
 
     public void start(){
-        learningTicks = this.getBeeEntity().world.getRandom().nextInt((300 - 200) + 1) + 200;
+        int minTime = (int) MathHelper.clamp(100*((this.teacher.getBlockPos().getSquaredDistance(this.teacher.getFlowerPos()))/50),100,200);
+        int maxTime = (int) MathHelper.clamp(200*((this.teacher.getBlockPos().getSquaredDistance(this.teacher.getFlowerPos()))/50),200,300);
+        learningTicks = this.getBeeEntity().world.getRandom().nextInt((maxTime - minTime) + 1) + minTime;
         setLearning(true);
     }
 
