@@ -18,8 +18,8 @@ public class BeeDanceClient implements ClientModInitializer {
             assert client.world != null;
             BeeEntity beeEntity = (BeeEntity) client.world.getEntityById(entityId);
             BeeDancing dancingBee = (BeeDancing) beeEntity;
-            assert dancingBee != null;
-            dancingBee.setDancing(isDancing);
+            if(dancingBee != null)
+                dancingBee.setDancing(isDancing);
         });
     }
 }

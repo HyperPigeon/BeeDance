@@ -38,7 +38,7 @@ public abstract class BeeEntityModelMixin {
             this.leftAntenna.pitch = 0.0F;
             this.rightAntenna.pitch = 0.0F;
             this.bone.pitch = 0.0F;
-            this.bone.yaw = (float) ((Math.PI/4)* MathHelper.cos(animationProgress * 0.3F));
+            this.bone.yaw = (float) ((Math.PI / 4) * MathHelper.cos(animationProgress * 0.5F));
             boolean bl = beeEntity.isOnGround() && beeEntity.getVelocity().lengthSquared() < 1.0E-7;
             if (bl) {
                 this.rightWing.yaw = -0.2618F;
@@ -76,7 +76,9 @@ public abstract class BeeEntityModelMixin {
                     this.bone.pivotY = 19.0F - MathHelper.cos(animationProgress * 0.18F) * 0.9F;
                 }
             }
+
             ci.cancel();
+
         }
 
     }
