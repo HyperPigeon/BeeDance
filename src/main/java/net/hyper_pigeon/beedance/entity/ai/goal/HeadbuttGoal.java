@@ -23,8 +23,8 @@ public class HeadbuttGoal extends BeeNotAngryGoal{
                     beeEntity != null &&
                     this.getBeeEntity().canSee(beeEntity) &&
                     isBeeDancing(beeEntity) &&
-                    !beeEntity.getFlowerPos().equals(this.getBeeEntity().getFlowerPos()) &&
-                    (beeEntity.getFlowerPos().getSquaredDistance(beeEntity.getPos()) -
+                    !Objects.equals(beeEntity.getFlowerPos(), this.getBeeEntity().getFlowerPos()) &&
+                    (Objects.requireNonNull(beeEntity.getFlowerPos()).getSquaredDistance(beeEntity.getPos()) -
                             Objects.requireNonNull(this.getBeeEntity().getFlowerPos()).
                                     getSquaredDistance(this.getBeeEntity().getPos()) > 10));
             if(dancingBees != null && !dancingBees.isEmpty()) {

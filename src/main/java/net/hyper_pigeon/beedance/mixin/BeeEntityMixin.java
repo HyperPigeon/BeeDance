@@ -12,7 +12,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -38,9 +37,7 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
 
     private boolean headbutted = false;
     private int headbuttedTicks = 0;
-    //private List<BeeEntity> students;
 
-    //public AnimationState dancingAnimationState = new AnimationState();
 
     protected BeeEntityMixin(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -127,7 +124,6 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
                 ServerWorld serverWorld = (ServerWorld)(this.getEntityWorld());
                 serverWorld.spawnParticles(ParticleTypes.ANGRY_VILLAGER,
                         beeEntity.getX(), beeEntity.getRandomBodyY() + 0.5, beeEntity.getZ(),3, d, e, f,0.0);
-                //beeEntity.world.addParticle(ParticleTypes.ANGRY_VILLAGER, beeEntity.getParticleX(1.0), beeEntity.getRandomBodyY() + 1.0, beeEntity.getParticleZ(1.0), d, e, f);
             }
         }
 
@@ -140,43 +136,4 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
     }
 
 
-
-
-//    @Override
-//    public AnimationState getDancingAnimationState(){
-//        return dancingAnimationState;
-//    }
-//
-//    private void setupAnimationStates() {
-//        dancingAnimationState.setRunning(isDancing(),age);
-//    }
-
-//    @Override
-//    public void setStudents(List<BeeEntity> students){
-//        this.students = students;
-//    }
-//
-//    @Override
-//    public List<BeeEntity> getStudents(){
-//        return this.students;
-//    }
-
-//    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
-//    public void writeAdditionalCustomDataToNbt(NbtCompound nbt, CallbackInfo ci){
-//        nbt.putBoolean("isDancing", dancing);
-//        nbt.putBoolean("isLearning", learning);
-//    }
-//
-//    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
-//    public void readAdditionalCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci){
-//        setDancing(false);
-//        setLearning(false);
-//    }
-
-//    @Inject(method = "tick", at = @At("TAIL"))
-//    public void startAnimations(CallbackInfo ci){
-//        if (this.world.isClient()) {
-//            this.setupAnimationStates();
-//        }
-//    }
 }
