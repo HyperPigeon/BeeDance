@@ -19,7 +19,7 @@ public class LearnFlowerPosGoal extends BeeNotAngryGoal {
     @Override
     public boolean canBeeStart() {
         if(!this.getBeeEntity().hasFlower()) {
-            List<BeeEntity> dancingBees = this.getBeeEntity().world.getEntitiesByClass(BeeEntity.class, this.getSearchBox(5), livingEntity -> livingEntity != null && isBeeDancing(livingEntity));
+            List<BeeEntity> dancingBees = this.getBeeEntity().world.getEntitiesByClass(BeeEntity.class, this.getSearchBox(4), livingEntity -> livingEntity != null && isBeeDancing(livingEntity));
             if(dancingBees != null && !dancingBees.isEmpty()) {
                 teacher = dancingBees.get(0);
                 return true;
