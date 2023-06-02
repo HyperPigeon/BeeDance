@@ -47,13 +47,13 @@ public class LearnFlowerPosGoal extends BeeNotAngryGoal {
     public void tick() {
         this.getBeeEntity().getNavigation().stop();
         this.getBeeEntity().getLookControl().lookAt(this.teacher);
+        if(learningTicks <= 0) {
+            this.getBeeEntity().setFlowerPos(teacher.getFlowerPos());
+        }
         learningTicks--;
     }
 
     public void stop(){
-        if(teacher != null && teacher.isAlive()){
-            this.getBeeEntity().setFlowerPos(teacher.getFlowerPos());
-        }
         setLearning(false);
     }
 

@@ -1,9 +1,5 @@
 package net.hyper_pigeon.beedance.interfaces;
 
-import net.minecraft.entity.passive.BeeEntity;
-
-import java.util.List;
-
 public interface BeeDancing {
     void setDancing(boolean dancing);
 
@@ -13,7 +9,12 @@ public interface BeeDancing {
 
     void setLearning(boolean learning);
 
-//    void setStudents(List<BeeEntity> students);
-//
-//    List<BeeEntity> getStudents();
+    void setHeadbutting(boolean headbutting);
+
+    boolean isHeadbutting();
+
+    void setHeadbutted(boolean headbutted);
+
+    boolean getHeadbutted();
+
 }

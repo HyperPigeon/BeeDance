@@ -16,8 +16,8 @@ public class TellFlowerPosGoal extends BeeNotAngryGoal{
 
     @Override
     public boolean canBeeStart() {
-        if(this.getBeeEntity().hasFlower()) {
-            List<BeeEntity> flowerlessBees = this.getBeeEntity().world.getEntitiesByClass(BeeEntity.class, this.getSearchBox(5), livingEntity -> livingEntity != null && !livingEntity.hasFlower() && !isLearning(livingEntity));
+        if(this.getBeeEntity().hasFlower() && !getHeadbutted() && !isHeadbutting() && !this.getBeeEntity().isLeashed()) {
+            List<BeeEntity> flowerlessBees = this.getBeeEntity().world.getEntitiesByClass(BeeEntity.class, this.getSearchBox(3), beeEntity -> beeEntity != null && !beeEntity.hasFlower() && this.getBeeEntity().canSee(beeEntity) && !isLearning(beeEntity));
             if (flowerlessBees != null && !flowerlessBees.isEmpty()) {
                 students = flowerlessBees;
                 return true;
@@ -28,22 +28,27 @@ public class TellFlowerPosGoal extends BeeNotAngryGoal{
 
     @Override
     public boolean canBeeContinue() {
-        if(this.getBeeEntity() != null && this.getBeeEntity().isAlive() && students != null && !students.isEmpty() && isDancing()) {
+        if(this.getBeeEntity() != null && this.getBeeEntity().isAlive() && this.getBeeEntity().hasFlower() && students != null && !students.isEmpty() && isDancing() && !getHeadbutted() && !isHeadbutting() && !this.getBeeEntity().isLeashed()) {
             return true;
         }
         return false;
     }
 
     public void start(){
-        this.getBeeEntity().getLookControl().lookAt(this.getBeeEntity().getFlowerPos().getX(),this.getBeeEntity().getFlowerPos().getY(),this.getBeeEntity().getFlowerPos().getZ());
-        setDancing(true);
-
+        if(this.getBeeEntity().hasFlower()) {
+            this.getBeeEntity().getLookControl().lookAt(this.getBeeEntity().getFlowerPos().getX(), this.getBeeEntity().getFlowerPos().getY(), this.getBeeEntity().getFlowerPos().getZ());
+            setDancing(true);
+        }
     }
 
     public void tick(){
-        this.getBeeEntity().getNavigation().stop();
-        this.getBeeEntity().getLookControl().lookAt(this.getBeeEntity().getFlowerPos().getX(),this.getBeeEntity().getFlowerPos().getY(),this.getBeeEntity().getFlowerPos().getZ());
-        students.removeIf(student -> !student.isAlive() || this.getBeeEntity().distanceTo(student) > 5 || student.hasFlower());
+        if(this.getBeeEntity().hasFlower()) {
+            this.getBeeEntity().getNavigation().stop();
+            this.getBeeEntity().getLookControl().lookAt(this.getBeeEntity().getFlowerPos().getX(),this.getBeeEntity().getFlowerPos().getY(),this.getBeeEntity().getFlowerPos().getZ());
+            students.removeIf(student -> !student.isAlive() || this.getBeeEntity().distanceTo(student) > 3 || student.hasFlower());
+        }
+
+
         setDancing(true);
     }
 
@@ -65,6 +70,16 @@ public class TellFlowerPosGoal extends BeeNotAngryGoal{
     public boolean isDancing(){
         BeeDancing beeEntity = (BeeDancing) this.getBeeEntity();
         return beeEntity.isDancing();
+    }
+
+    public boolean getHeadbutted(){
+        BeeDancing beeEntity = (BeeDancing) this.getBeeEntity();
+        return beeEntity.getHeadbutted();
+    }
+
+    public boolean isHeadbutting(){
+        BeeDancing beeEntity = (BeeDancing) this.getBeeEntity();
+        return beeEntity.isHeadbutting();
     }
 
     protected Box getSearchBox(double distance) {
