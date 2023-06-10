@@ -53,7 +53,7 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
     public void setDancing(boolean dancing) {
         this.dancing = dancing;
 
-        if(!world.isClient()) {
+        if(!getEntityWorld().isClient()) {
             PacketByteBuf packetByteBuf = PacketByteBufs.create();
             packetByteBuf.writeInt(this.getId());
             packetByteBuf.writeBoolean(dancing);

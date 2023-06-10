@@ -5,6 +5,7 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BeeEntityModel;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.util.math.MathHelper;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,20 +14,28 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BeeEntityModel.class)
 public abstract class BeeEntityModelMixin {
+    @Final
     @Shadow
     private ModelPart bone;
+    @Final
     @Shadow
     private ModelPart rightWing;
+    @Final
     @Shadow
     private ModelPart leftWing;
+    @Final
     @Shadow
     private ModelPart frontLegs;
+    @Final
     @Shadow
     private ModelPart middleLegs;
+    @Final
     @Shadow
     private ModelPart backLegs;
+    @Final
     @Shadow
     private ModelPart leftAntenna;
+    @Final
     @Shadow
     private ModelPart rightAntenna;
 

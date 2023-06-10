@@ -17,7 +17,7 @@ public class TellFlowerPosGoal extends BeeNotAngryGoal{
     @Override
     public boolean canBeeStart() {
         if(this.getBeeEntity().hasFlower() && !getHeadbutted() && !isHeadbutting() && !this.getBeeEntity().isLeashed()) {
-            List<BeeEntity> flowerlessBees = this.getBeeEntity().world.getEntitiesByClass(BeeEntity.class, this.getSearchBox(4), beeEntity -> beeEntity != null && !beeEntity.hasFlower() && this.getBeeEntity().canSee(beeEntity) && !isLearning(beeEntity));
+            List<BeeEntity> flowerlessBees = this.getBeeEntity().getEntityWorld().getEntitiesByClass(BeeEntity.class, this.getSearchBox(4), beeEntity -> beeEntity != null && !beeEntity.hasFlower() && this.getBeeEntity().canSee(beeEntity) && !isLearning(beeEntity));
             if (flowerlessBees != null && !flowerlessBees.isEmpty()) {
                 students = flowerlessBees;
                 return true;
