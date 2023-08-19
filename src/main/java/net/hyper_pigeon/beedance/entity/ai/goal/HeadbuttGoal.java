@@ -22,10 +22,10 @@ public class HeadbuttGoal extends BeeNotAngryGoal{
             List<BeeEntity> dancingBees = this.getBeeEntity().world.getEntitiesByClass(BeeEntity.class, this.getSearchBox(5), beeEntity ->
                     beeEntity != null &&
                     this.getBeeEntity().canSee(beeEntity) &&
-                    isBeeDancing(beeEntity) &&
+                    isBeeDancing(beeEntity) && beeEntity.getFlowerPos() != null &&
                     !Objects.equals(beeEntity.getFlowerPos(), this.getBeeEntity().getFlowerPos()) &&
-                    (Objects.requireNonNull(beeEntity.getFlowerPos()).getSquaredDistance(beeEntity.getPos()) -
-                            Objects.requireNonNull(this.getBeeEntity().getFlowerPos()).
+                    ((beeEntity.getFlowerPos()).getSquaredDistance(beeEntity.getPos()) -
+                            (this.getBeeEntity().getFlowerPos()).
                                     getSquaredDistance(this.getBeeEntity().getPos()) > 10));
             if(dancingBees != null && !dancingBees.isEmpty()) {
                 target = dancingBees.get(0);
