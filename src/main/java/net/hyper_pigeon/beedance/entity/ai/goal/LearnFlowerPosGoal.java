@@ -19,7 +19,7 @@ public class LearnFlowerPosGoal extends BeeNotAngryGoal {
     @Override
     public boolean canBeeStart() {
         if(!this.getBeeEntity().hasFlower()) {
-            List<BeeEntity> dancingBees = this.getBeeEntity().world.getEntitiesByClass(BeeEntity.class, this.getSearchBox(5), livingEntity -> livingEntity != null && isBeeDancing(livingEntity));
+            List<BeeEntity> dancingBees = this.getBeeEntity().getEntityWorld().getEntitiesByClass(BeeEntity.class, this.getSearchBox(4), livingEntity -> livingEntity != null && isBeeDancing(livingEntity));
             if(dancingBees != null && !dancingBees.isEmpty()) {
                 teacher = dancingBees.get(0);
                 return true;
@@ -39,7 +39,7 @@ public class LearnFlowerPosGoal extends BeeNotAngryGoal {
     public void start(){
         int minTime = (int) MathHelper.clamp(100*((this.teacher.getBlockPos().getSquaredDistance(this.teacher.getFlowerPos()))/50),100,200);
         int maxTime = (int) MathHelper.clamp(200*((this.teacher.getBlockPos().getSquaredDistance(this.teacher.getFlowerPos()))/50),200,300);
-        learningTicks = this.getBeeEntity().world.getRandom().nextInt((maxTime - minTime) + 1) + minTime;
+        learningTicks = this.getBeeEntity().getEntityWorld().getRandom().nextInt((maxTime - minTime) + 1) + minTime;
         setLearning(true);
     }
 

@@ -19,7 +19,7 @@ public class HeadbuttGoal extends BeeNotAngryGoal{
     @Override
     public boolean canBeeStart() {
         if(this.getBeeEntity().hasFlower()){
-            List<BeeEntity> dancingBees = this.getBeeEntity().world.getEntitiesByClass(BeeEntity.class, this.getSearchBox(5), beeEntity ->
+            List<BeeEntity> dancingBees = this.getBeeEntity().getEntityWorld().getEntitiesByClass(BeeEntity.class, this.getSearchBox(5), beeEntity ->
                     beeEntity != null &&
                     this.getBeeEntity().canSee(beeEntity) &&
                     isBeeDancing(beeEntity) &&

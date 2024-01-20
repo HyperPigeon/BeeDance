@@ -35,7 +35,6 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
     private boolean headbutting = false;
     private int headbuttingParticleTicks = 0;
 
-    private boolean headbutted = false;
     private int headbuttedTicks = 0;
 
 
@@ -54,7 +53,7 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
     public void setDancing(boolean dancing) {
         this.dancing = dancing;
 
-        if(!world.isClient()) {
+        if(!getEntityWorld().isClient()) {
             PacketByteBuf packetByteBuf = PacketByteBufs.create();
             packetByteBuf.writeInt(this.getId());
             packetByteBuf.writeBoolean(dancing);
@@ -80,7 +79,7 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
     @Override
     public void setHeadbutting(boolean headbutting){
         if(headbutting){
-            this.headbuttingParticleTicks = 20;
+            this.headbuttingParticleTicks = 10;
         }
         else {
             this.headbuttingParticleTicks = 0;
@@ -97,17 +96,17 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
     public void setHeadbutted(boolean headbutted){
         if(headbutted) {
             this.playSound(SoundEvents.ENTITY_BEE_HURT, 0.4F, 1.0F);
-            this.headbuttedTicks = 200;
+            this.headbuttedTicks = 500;
         }
         else {
             this.headbuttedTicks = 0;
         }
-        this.headbutted = headbutted;
+
     }
 
     @Override
     public boolean getHeadbutted(){
-        return headbutted;
+        return this.headbuttedTicks > 0;
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
@@ -123,16 +122,14 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
             if(!beeEntity.getEntityWorld().isClient()) {
                 ServerWorld serverWorld = (ServerWorld)(this.getEntityWorld());
                 serverWorld.spawnParticles(ParticleTypes.ANGRY_VILLAGER,
-                        beeEntity.getX(), beeEntity.getRandomBodyY() + 0.5, beeEntity.getZ(),3, d, e, f,0.0);
+                        beeEntity.getX(), beeEntity.getRandomBodyY() + 0.5, beeEntity.getZ(),1, d, e, f,0.0);
             }
         }
 
         if(headbuttedTicks > 0){
             headbuttedTicks--;
         }
-        else {
-            setHeadbutted(false);
-        }
+
     }
 
 

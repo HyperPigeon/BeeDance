@@ -17,7 +17,7 @@ public class TellFlowerPosGoal extends BeeNotAngryGoal{
     @Override
     public boolean canBeeStart() {
         if(this.getBeeEntity().hasFlower() && !getHeadbutted() && !isHeadbutting() && !this.getBeeEntity().isLeashed()) {
-            List<BeeEntity> flowerlessBees = this.getBeeEntity().world.getEntitiesByClass(BeeEntity.class, this.getSearchBox(3), beeEntity -> beeEntity != null && !beeEntity.hasFlower() && this.getBeeEntity().canSee(beeEntity) && !isLearning(beeEntity));
+            List<BeeEntity> flowerlessBees = this.getBeeEntity().getEntityWorld().getEntitiesByClass(BeeEntity.class, this.getSearchBox(4), beeEntity -> beeEntity != null && !beeEntity.hasFlower() && this.getBeeEntity().canSee(beeEntity) && !isLearning(beeEntity));
             if (flowerlessBees != null && !flowerlessBees.isEmpty()) {
                 students = flowerlessBees;
                 return true;
@@ -45,7 +45,7 @@ public class TellFlowerPosGoal extends BeeNotAngryGoal{
         if(this.getBeeEntity().hasFlower()) {
             this.getBeeEntity().getNavigation().stop();
             this.getBeeEntity().getLookControl().lookAt(this.getBeeEntity().getFlowerPos().getX(),this.getBeeEntity().getFlowerPos().getY(),this.getBeeEntity().getFlowerPos().getZ());
-            students.removeIf(student -> !student.isAlive() || this.getBeeEntity().distanceTo(student) > 3 || student.hasFlower());
+            students.removeIf(student -> !student.isAlive() || this.getBeeEntity().distanceTo(student) > 4 || student.hasFlower());
         }
 
 
