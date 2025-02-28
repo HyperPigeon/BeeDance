@@ -8,6 +8,7 @@ import net.hyper_pigeon.beedance.entity.ai.goal.LearnFlowerPosGoal;
 import net.hyper_pigeon.beedance.entity.ai.goal.TellFlowerPosGoal;
 import net.hyper_pigeon.beedance.interfaces.BeeDancing;
 import net.hyper_pigeon.beedance.networking.BeeDancingNetworkingConstants;
+import net.hyper_pigeon.beedance.networking.BeeDancingPayload;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.BeeEntity;
@@ -54,11 +55,9 @@ public abstract class BeeEntityMixin extends AnimalEntity implements BeeDancing 
         this.dancing = dancing;
 
         if(!getEntityWorld().isClient()) {
-            PacketByteBuf packetByteBuf = PacketByteBufs.create();
-            packetByteBuf.writeInt(this.getId());
-            packetByteBuf.writeBoolean(dancing);
+            BeeDancingPayload beeDancingPayload = new BeeDancingPayload(this.getId(), dancing);
             for (ServerPlayerEntity player : PlayerLookup.tracking((BeeEntity)(Object)(this))) {
-                ServerPlayNetworking.send(player, BeeDancingNetworkingConstants.BEE_DANCING, packetByteBuf);
+                ServerPlayNetworking.send(player, beeDancingPayload);
             }
         }
         //this.dataTracker.set(DANCING,dancing);
